@@ -2,18 +2,17 @@
 
 ## API Documentation
 ```
-BASE_URL = "https://saurav.tech/NewsAPI/"
-top_headlines_api = "<BASE_URL>/top-headlines/category/<category>/<country_code>.json"
-everything_api = "<BASE_URL>/everything/<source_id>.json"
+BASE_URL = "https://github.com/prakasharyaman/NewpaperNews-API/"
+top_headlines_api = "https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/top-headlines/category/<category>/in.json"
+everything_api = "https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/everything/<"source">.json"
 ```
-Detailed documentation: [Postman Documentation](https://documenter.getpostman.com/view/3479169/Szf7zncp?version=latest)
+
 
 ## Example 
--   [https://saurav.tech/NewsAPI/top-headlines/category/health/in.json](https://saurav.tech/NewsAPI/top-headlines/category/health/in.json)
--   [https://saurav.tech/NewsAPI/everything/cnn.json](https://saurav.tech/NewsAPI/everything/cnn.json)
--   [https://saurav.tech/NewsAPI/sources.json](https://saurav.tech/NewsAPI/sources.json)
+-   [https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/top-headlines/category/business/in.json](https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/top-headlines/category/business/in.json)
+
 ```shell script
-curl --request GET 'https://saurav.tech/NewsAPI/top-headlines/category/health/in.json'
+curl --request GET 'https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/top-headlines/category/business/in.json'
 ```
 
 ```
