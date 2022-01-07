@@ -1,14 +1,5 @@
 # NewsAPI
-1.clone this repo and upload it your own git .
-2. get the url for the repo (the one that you uploaded)
-3. the url should look like this : "https://api.github.com/repos/prakasharyaman/NewpaperNews-API/contents/" (test it before if it returns the content)
-4. do mind the branch sector (in my case the main branch is named 'main' and not 'master',so u have to edit the branch as per your own name of branch .
-5. done.
-PRE STEPS
-1.u first have to generate a newspai.org api
-2.also a github personal access token granting it full permission.
-3.create a .env(just ".env",no name needed) file in your main directory and put the following in it :API_KEYS=["api-here", "api-here"] # To fetch the news feed GITHUB_API_TOKEN=token here #for github
-4. and now you are done . it should work
+
 ## API Documentation
 ```
 BASE_URL = "https://saurav.tech/NewsAPI/"
