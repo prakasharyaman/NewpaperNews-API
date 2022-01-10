@@ -8,9 +8,9 @@ from flask import Flask, redirect
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime, timedelta
 
-COUNTRIES_LANGUAGES = {"in": "en", "us": "en"}
+COUNTRIES_LANGUAGES = {"in": "en", "us": "en", }
 CATEGORIES = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
-SOURCES = ["bbc-news", "cnn", "fox-news", "google-news"]
+SOURCES = ["bbc-news",]
 
 app = Flask(__name__)
 
@@ -18,8 +18,7 @@ load_dotenv()
 
 GITHUB_API_TOKEN = os.getenv("GITHUB_API_TOKEN")
 API_KEYS = ast.literal_eval(os.getenv("API_KEYS"))
-# GITHUB_API_TOKEN = os.getenv("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")
-# API_KEYS = ast.literal_eval(os.getenv("0a16d902a5e24088b471d90f29178989"))
+
 LAST_KEY_INDEX = randrange(0, len(API_KEYS))
 
 
@@ -30,15 +29,15 @@ def get_key():
 
 
 def push_to_github(filename, content):
-    url = "https://api.github.com/repos/prakasharyaman/NewpaperNews-API/contents" + filename
+    url = "https://api.github.com/repos/prakasharyaman/NewpaperNews-API/contents/" + filename
     base64content = base64.b64encode(bytes(json.dumps(content), 'utf-8'))
     data = requests.get(url + '?ref=main', headers={"Authorization": "token " + GITHUB_API_TOKEN}).json()
     print("trying to get data reply ")
-    print(data)
+    
     sha = data['sha']
     if base64content.decode('utf-8') != data['content'].replace("\n", ""):
         message = json.dumps({"message": "update " + filename,
-                              "branch": "master",
+                              "branch": "main",
                               "content": base64content.decode("utf-8"),
                               "sha": sha
                               })
@@ -61,6 +60,7 @@ def update_top_headline():
                                                                     time.strftime("%A, %d. %B %Y %I:%M:%S %p")))
             newsapi = NewsApiClient(api_key=get_key())
             top_headlines = newsapi.get_top_headlines(category=category, country=country, language=COUNTRIES_LANGUAGES[country], page_size=100)
+            
             push_to_github("top-headlines/category/{0}/{1}.json".format(category, country), top_headlines)
 
 
