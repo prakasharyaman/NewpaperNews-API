@@ -59,7 +59,7 @@ curl --request GET 'https://raw.githubusercontent.com/prakasharyaman/NewpaperNew
 | BBC News  | bbc-news  |
 | CNN | cnn  |
 | Fox News | fox-news  |
-| Google News | google-news  |
+
 
 > NOTE: Top headlines will include all sources which are available in newsapi.org 
 
@@ -67,11 +67,7 @@ curl --request GET 'https://raw.githubusercontent.com/prakasharyaman/NewpaperNew
 | Country  | 2-letter ISO 3166-1 code |
 | ------------- | ------------- |
 | :india:	India  | in  |
-|  :us:	USA | us  |
-|  :australia:	Australia | au  |
-|  :ru:	Russia | ru  |
-|  :fr:	France | fr  |
-|  :gb:	United Kingdom | gb  |
+
 
 ## Available categories
 - business
