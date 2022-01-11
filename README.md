@@ -9,7 +9,7 @@ everything_api = "https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-
 ## AUTOMATION
 
 - I have uploaded the newsupdate.py file to a Digital Ocean Droplet and have created a cron job that updates the data according to schedule .
-- >> If you need help , drop a issue or a discussion .
+- 👋 If you need help , drop a issue or a discussion .
 
 ### Firebase Automation 
 
