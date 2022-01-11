@@ -6,8 +6,15 @@ BASE_URL = "https://github.com/prakasharyaman/NewpaperNews-API/"
 top_headlines_api = "https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/top-headlines/category/<category>/in.json"
 everything_api = "https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/everything/<"source">.json"
 ```
-
-
+## AUTOMATION
+```
+I have uploaded the newsupdate.py file to a Digital Ocean Droplet and have created a cron job that updates the data according to schedule .
+>> If you need help , drop a issue or a discussion .
+```
+### Firebase Automation 
+```
+You can find how the automation works by navigating to newsupdate.py file 
+```
 ## Example 
 -   [https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/top-headlines/category/business/in.json](https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/top-headlines/category/business/in.json)
 
