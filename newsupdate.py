@@ -9,7 +9,7 @@ CATEGORIES = ["business", "entertainment", "general", "health", "science", "spor
 SOURCES = ["bbc-news",]
 load_dotenv()
 
-
+#github server token
 GITHUB_API_TOKEN = os.getenv("GITHUB_API_TOKEN")
 API_KEYS = ast.literal_eval(os.getenv("API_KEYS"))
 #firebase server token
