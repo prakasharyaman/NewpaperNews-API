@@ -60,12 +60,7 @@ curl --request GET 'https://raw.githubusercontent.com/prakasharyaman/NewpaperNew
 }
 ```
 
-## Available sources for everything endpoint
-| Source  | id |
-| ------------- | ------------- |
-| BBC News  | bbc-news  |
-| CNN | cnn  |
-| Fox News | fox-news  |
+
 
 
 > NOTE: Top headlines will include all sources which are available in newsapi.org 
