@@ -100,3 +100,5 @@ This json file is then committed and pushed to github. Now one can get the lates
 
 - Cannot query for news (Can be fixed by cloning this repo and customizing according to your needs)
 - Slightly delayed result (Can be reduced by reducing the query time interval to newsapi)
+
+### Huge Thanks To https://github.com/SauravKanchan/NewsAPI
