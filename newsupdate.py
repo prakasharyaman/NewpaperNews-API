@@ -12,6 +12,7 @@ load_dotenv()
 
 GITHUB_API_TOKEN = os.getenv("GITHUB_API_TOKEN")
 API_KEYS = ast.literal_eval(os.getenv("API_KEYS"))
+#firebase server token
 ServerToken = os.getenv("ServerToken")
 
 LAST_KEY_INDEX = randrange(0, len(API_KEYS))
