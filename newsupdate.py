@@ -4,23 +4,43 @@ from dotenv import load_dotenv
 from random import randrange
 from newsapi import NewsApiClient
 from datetime import datetime, timedelta
-COUNTRIES_LANGUAGES = {"in": "en", "us": "en", }
+COUNTRIES_LANGUAGES = {"in": "en", }
 CATEGORIES = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
 SOURCES = ["bbc-news",]
-
 load_dotenv()
+
 
 GITHUB_API_TOKEN = os.getenv("GITHUB_API_TOKEN")
 API_KEYS = ast.literal_eval(os.getenv("API_KEYS"))
+ServerToken = os.getenv("ServerToken")
 
 LAST_KEY_INDEX = randrange(0, len(API_KEYS))
-
+headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'key=' + ServerToken,
+      }
 print('hello world')
 def get_key():
     global LAST_KEY_INDEX
     LAST_KEY_INDEX = (LAST_KEY_INDEX + 1) % len(API_KEYS)
     return API_KEYS[LAST_KEY_INDEX]
-
+def send_notification(imageurl, title, body):
+    print('sending notification')
+    resp = requests.post("https://fcm.googleapis.com/fcm/send", headers=headers, data=json.dumps({
+    'to':'/topics/news',
+          'notification': {'title': title,
+                            'body': body,
+                            'image': imageurl,
+                            },
+          
+          'priority': 'high',
+        #   'data': dataPayLoad,
+        }))
+    print(resp.status_code)
+    if resp.status_code == 200:
+        print('notification sent')
+    else:
+        print('notification failed')
 def push_to_github(filename, content):
     url = "https://api.github.com/repos/prakasharyaman/NewpaperNews-API/contents/" + filename
     base64content = base64.b64encode(bytes(json.dumps(content), 'utf-8'))
@@ -44,9 +64,6 @@ def push_to_github(filename, content):
         print("Everything up to date")
 
 
-# @app.route('/')
-# def hello_world():
-#     return redirect("https://saurav.tech/NewsAPI/")
 def update_top_headline():
     print('updating headlines')
     for category in CATEGORIES:
@@ -55,6 +72,18 @@ def update_top_headline():
                                                                     time.strftime("%A, %d. %B %Y %I:%M:%S %p")))
             newsapi = NewsApiClient(api_key=get_key())
             top_headlines = newsapi.get_top_headlines(category=category, country=country, language=COUNTRIES_LANGUAGES[country], page_size=100)
+            if country == 'in'and category == 'general':
+                articles = top_headlines['articles'] 
+                if len(articles) > 5:
+                    articles = articles[:3]
+                    print('processing articles to send notifications')
+                    for article in articles:
+                        if article['title']!=None and article['description']!=None and article['urlToImage']!=None:
+                            send_notification(article['urlToImage'], article['title'], article['description'])                        
+                 
+                        
+                
+
             
             push_to_github("top-headlines/category/{0}/{1}.json".format(category, country), top_headlines)
 
