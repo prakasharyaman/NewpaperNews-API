@@ -6,7 +6,14 @@ BASE_URL = "https://github.com/prakasharyaman/NewpaperNews-API/"
 top_headlines_api = "https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/top-headlines/category/<category>/in.json"
 everything_api = "https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/everything/<"source">.json"
 ```
+## AUTOMATION
 
+- I have uploaded the newsupdate.py file to a Digital Ocean Droplet and have created a cron job that updates the data according to schedule .
+- 👋 If you need help , drop an issue or a discussion .
+
+### Firebase Automation 
+
+- You can find how the automation works by navigating to newsupdate.py file 
 
 ## Example 
 -   [https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/top-headlines/category/business/in.json](https://raw.githubusercontent.com/prakasharyaman/NewpaperNews-API/main/top-headlines/category/business/in.json)
@@ -53,13 +60,8 @@ curl --request GET 'https://raw.githubusercontent.com/prakasharyaman/NewpaperNew
 }
 ```
 
-## Available sources for everything endpoint
-| Source  | id |
-| ------------- | ------------- |
-| BBC News  | bbc-news  |
-| CNN | cnn  |
-| Fox News | fox-news  |
-| Google News | google-news  |
+
+
 
 > NOTE: Top headlines will include all sources which are available in newsapi.org 
 
@@ -67,11 +69,7 @@ curl --request GET 'https://raw.githubusercontent.com/prakasharyaman/NewpaperNew
 | Country  | 2-letter ISO 3166-1 code |
 | ------------- | ------------- |
 | :india:	India  | in  |
-|  :us:	USA | us  |
-|  :australia:	Australia | au  |
-|  :ru:	Russia | ru  |
-|  :fr:	France | fr  |
-|  :gb:	United Kingdom | gb  |
+
 
 ## Available categories
 - business
@@ -102,3 +100,5 @@ This json file is then committed and pushed to github. Now one can get the lates
 
 - Cannot query for news (Can be fixed by cloning this repo and customizing according to your needs)
 - Slightly delayed result (Can be reduced by reducing the query time interval to newsapi)
+
+### Huge Thanks To https://github.com/SauravKanchan/NewsAPI
