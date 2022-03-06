@@ -19,7 +19,7 @@ load_dotenv()
 GITHUB_API_TOKEN = os.getenv("GITHUB_API_TOKEN")
 API_KEYS = ast.literal_eval(os.getenv("API_KEYS"))
 # firebase server token
-ServerToken = 'AAAA_y0H0Mc:APA91bFE1lD-WEU_dL06lHHG6EETgyacGqMOYh_Vcnf_vxoDxZnAbKGl0gef6bBG_yZTR9snCOcy-5Ss-q6wRsE-HRKINu0I7oU-QMIM-Qn-hmPvO-4sKN4t7WTyxm8HBxNpreNhHCVW'
+ServerToken = 'AAAA_y0FindYouOwnAndPutHereVW'
 
 
 
