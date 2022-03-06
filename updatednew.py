@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from random import randrange
 from newsapi import NewsApiClient
 from datetime import datetime, timedelta
-COUNTRIES_LANGUAGES = {"in": "en",}
+COUNTRIES_LANGUAGES = {"in": "en", "us": "en"}
 CATEGORIES = ["business", "entertainment", "general",
               "health", "science", "sports", "technology"]
 SOURCES = ["ndtv.com", "businessinsider.in", "aajtak.in", "moneycontrol.com",
@@ -19,8 +19,7 @@ load_dotenv()
 GITHUB_API_TOKEN = os.getenv("GITHUB_API_TOKEN")
 API_KEYS = ast.literal_eval(os.getenv("API_KEYS"))
 # firebase server token
-ServerToken = 'AAAA_y0H0Mc:APA91bFE1lD-WEU_dL06lHHG6EETgyacGqMOYh_Vcnf_vxoDxZnAbKGl0gef6bBG_yZTR9snCOcy-5Ss-q6wRsE-HRKINu0I7oU-QMIM-Qn-hmPvO-4sKN4t7WTyxm8HBxNpreNhHCVW'
-
+ServerToken = 'AAAA1d-fCDw:APA91bFR58y9XdX5aRXEahR_CqjGUM19CIoY7nF_HjxcGFXnHBECJfEHCYpBvvd4VaA60jMHEZEmFJ06WGk654l-gXVOFO-1GAMLT8EOx0qKKCsvkScFvmMaCeF78n7uLS9fUDsmqGNu'
 
 
 LAST_KEY_INDEX = randrange(0, len(API_KEYS))
@@ -37,29 +36,51 @@ def get_key():
     return API_KEYS[LAST_KEY_INDEX]
 
 
-def send_notification(title,imageUrl,id):
+def send_notification(imageurl, title, body, tag, article):
     print('sending notification')
     resp = requests.post("https://fcm.googleapis.com/fcm/send", headers=headers, data=json.dumps({
         'to': '/topics/news',
-    
-    "mutable_content" : True,
-    "content_available": True,
-    "priority": "high",
-    "data" : {
-        "content": {
-            "id": id,
-            "channelKey": "news",
-            "title":title,
-            "body": "Click to see more ",         
-            "notificationLayout": "BigPicture",
-            "bigPicture": imageUrl,
-            "showWhen": True,
-            "autoDismissible": True,
-         
+        'notification': {'title': title,
+                         'body': body,
+                         'image': imageurl,
+
+
+                         },
+        # 'android': {
+        #     'notification': {
+        #         'image': imageurl
+        #     }
+        # },  'apns': {
+        #     'payload': {
+        #         'aps': {
+        #             'mutable-content': 1
+        #         }
+        #     },
+        #     'fcm_options': {
+        #         "image": imageurl
+        #     }
+        # },  'webpush': {
+        #     'headers': {
+        #         'image': imageurl
+        #     }
+        # },
+        'data': {
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'screen': '/shots',
+            'category': tag,
+            'article': article,
+            'sourceName': article['source']['name'],
+            'description': article['description'],
+            'urlToImage': article['urlToImage'],
+            'content': article['content'],
+            'url': article['url'],
+            'title': article['title'],
+            'publishedAt': article['publishedAt'],
         },
- 
-    
-    }
+
+
+        'priority': 'high',
+        #   'data': dataPayLoad,
     }))
     print(resp.status_code)
     if resp.status_code == 200:
@@ -89,7 +110,7 @@ def push_to_github(filename, content):
 
         print(resp)
     else:
-        print("Everything id already up to date")
+        print("Everything up to date")
 
 
 def update_top_headline():
@@ -101,17 +122,15 @@ def update_top_headline():
             newsapi = NewsApiClient(api_key=get_key())
             top_headlines = newsapi.get_top_headlines(
                 category=category, country=country, language=COUNTRIES_LANGUAGES[country], page_size=100)
-            if country == 'in'and category == 'general':
+            if country == 'in':
                 articles = top_headlines['articles']
-                if len(articles) > 3:
-                    articles = articles[:2]
+                if len(articles) > 5:
+                    articles = articles[:1]
                     print('processing articles to send notifications')
-                    index = 0
-                    for article in articles:
-                     if article['title'] != None and article['description'] != None and article['urlToImage'] != None:
-                      send_notification(article['title'],article['urlToImage'],index)
-                      print(index)
-                      index += 1
+                    article = articles[0]
+                    if article['title'] != None and article['description'] != None and article['urlToImage'] != None:
+                        send_notification(
+                            article['urlToImage'], article['title'], article['description'], category, article)
 
             push_to_github(
                  "top-headlines/category/{0}/{1}.json".format(category, country), top_headlines)
